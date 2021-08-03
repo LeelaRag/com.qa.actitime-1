@@ -65,5 +65,10 @@ public class DriverScript {
 		String url = prop.getProperty("url");
 		driver.get(url);
 	}
+	
+	public void quitApplication()
+	{
+		driver.close();
+	}
 
 }
