@@ -1,12 +1,7 @@
 package com.acti.testcase;
 
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import com.acti.base.DriverScript;
-import com.acti.pages.EnterTimePage;
-import com.acti.pages.LoginPage;
 
 public class LoginTest extends BaseTest {
 	

@@ -18,6 +18,7 @@ public class EnterTimePage extends DriverScript {
 	
 	@FindBy(id="logoutLink") WebElement linkLogout;
 	@FindBy(xpath="//a[@class='userProfileLink username ']") WebElement textUserloggedIn;
+	@FindBy(id="container_tasks") WebElement menuTask;
 	
 //**************************************** Page Initialization ******************************************************//
 	
@@ -36,6 +37,11 @@ public class EnterTimePage extends DriverScript {
 	public String verifyUserLoggedIn()
 	{
 		return textUserloggedIn.getText();
+	}
+	
+	public void clickTaskMenu()
+	{
+		menuTask.click();
 	}
 	
 
