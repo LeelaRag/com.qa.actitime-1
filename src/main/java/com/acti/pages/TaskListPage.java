@@ -16,6 +16,7 @@ public class TaskListPage extends DriverScript {
 	@FindBy(xpath="//div[text()='Create Customer']") WebElement buttonCreateCustomer;
 	@FindBy(xpath="(//input[@placeholder='Start typing name ...'])[1]") WebElement textboxStartTyping;
 	@FindBy(xpath="(//span[@class='highlightToken'])[1]") WebElement nodeSearchResult;
+	@FindBy(xpath="//span[@class='innerHtml']") WebElement textSuccessMessage;
 	
 //**************************************** Page Initialization ******************************************************//
 	
@@ -25,6 +26,11 @@ public class TaskListPage extends DriverScript {
 	}
 	
 //**************************************** Page Actions ******** ******************************************************//
+	
+	public String validateSuccessMessage()
+	{
+		return textSuccessMessage.getText();
+	}
 	
 	public void clickSearchedCustomer()
 	{

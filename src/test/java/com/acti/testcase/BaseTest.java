@@ -1,19 +1,48 @@
 package com.acti.testcase;
 
+import java.io.IOException;
+
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 import com.acti.base.DriverScript;
 import com.acti.pages.EnterTimePage;
 import com.acti.pages.LoginPage;
 import com.acti.pages.TaskListPage;
 import com.acti.utils.ExcelReader;
+import com.acti.utils.Helper;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 public class BaseTest extends DriverScript {
 	
 	LoginPage loginpage;
 	EnterTimePage entertimepage;
 	TaskListPage tasklistpage;
+	public static ExtentTest logger;
+	public static ExtentHtmlReporter extent;
+	public static ExtentReports report;
+	
+	@BeforeSuite
+	public void setUpReport()
+	{
+//		extent = new ExtentHtmlReporter("./atreports/index.html+"+System.currentTimeMillis());
+		extent = new ExtentHtmlReporter("./atreports/index.html");
+		report = new ExtentReports();
+		report.attachReporter(extent);
+		
+	}
+	
+	@AfterSuite
+	public void flushReport()
+	{
+		report.flush();
+	}
 	
 	@BeforeMethod
 	public void setUp()
@@ -25,9 +54,13 @@ public class BaseTest extends DriverScript {
 	}
 	
 	@AfterMethod
-	public void tearDown()
+	public void tearDown(ITestResult result) throws IOException
 	{
-//		quitApplication();
+		if(result.getStatus()==ITestResult.FAILURE)
+		{
+			logger.fail("Test Failed",MediaEntityBuilder.createScreenCaptureFromPath(Helper.captureScreenshot(driver)).build());
+		}
+		quitApplication();
 	}
 	
 	@DataProvider(name="actidata")
